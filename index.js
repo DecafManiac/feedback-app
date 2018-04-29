@@ -1,5 +1,14 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+require('./models/User');
 require('./services/passport');
+
+
+mongoose.connect(keys.mongooseURI);
+mongoose.Promise = global.Promise;
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const app = express();
 
